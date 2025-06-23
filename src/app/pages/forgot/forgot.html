@@ -1,1 +1,26 @@
-<p>forgot works!</p>
+<div class="min-h-screen flex items-center justify-center bg-black">
+    <div class="bg-[#131313] border-1 border-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class=" text-white text-2xl font-bold mb-6 text-center">Reset Password</h2>
+
+        <form (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-[#e1e1e1]">Email</label>
+                <input [(ngModel)]="email" name="email" required type="email"
+                    class="mt-1 block bg-[#202020] w-full px-4 py-2 rounded-lg focus:ring-2 focus:white" />
+            </div>
+
+            <button type="submit"
+                class="w-full bg-white text-black font-bold py-2 px-4 rounded-lg mt-8 hover:cursor-pointer transition">
+                Send Reset Link
+            </button>
+
+            <p *ngIf="message" class="text-green-600 text-sm mt-4 text-center">{{ message }}</p>
+            <p *ngIf="error" class="text-red-500 text-sm mt-4 text-center">{{ error }}</p>
+
+            <p class="text-sm text-center text-gray-600 mt-4">
+                Remembered? <a routerLink="/login"
+                    class="text-sm text-purple-400 hover:cursor-pointer hover:underline">Log in</a>
+            </p>
+        </form>
+    </div>
+</div>
