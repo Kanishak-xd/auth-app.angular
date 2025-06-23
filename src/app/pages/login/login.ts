@@ -1,11 +1,29 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css'
 })
 export class Login {
+  email: string = '';
+  password: string = '';
+  error: string = '';
 
+  constructor(private auth: Auth, private router: Router) { }
+
+  async onSubmit() {
+    try {
+      await signInWithEmailAndPassword(this.auth, this.email, this.password);
+      this.router.navigate(['/home']);
+    } catch (err: any) {
+      this.error = err.message;
+      console.error('Login error:', err);
+    }
+  }
 }

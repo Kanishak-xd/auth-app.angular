@@ -1,1 +1,33 @@
-<p>login works!</p>
+<div class="min-h-screen flex items-center justify-center bg-black">
+    <div class="bg-[#131313] border-1 border-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center text-white">Log In</h2>
+
+        <form (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-[#e1e1e1]">Email</label>
+                <input [(ngModel)]="email" name="email" required type="email"
+                    class="mt-1 block bg-[#202020] w-full px-4 py-2 rounded-lg focus:ring-2 focus:white" />
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-[#e1e1e1]">Password</label>
+                <input [(ngModel)]="password" name="password" required type="password"
+                    class="mt-1 block bg-[#202020] w-full px-4 py-2 rounded-lg focus:ring-2 focus:white" />
+            </div>
+
+            <button type="submit"
+                class="w-full bg-white text-black font-bold py-2 px-4 rounded-lg mt-8 hover:cursor-pointer transition">
+                Log In
+            </button>
+
+            <p *ngIf="error" class="text-red-500 text-sm mt-4 text-center">{{ error }}</p>
+
+            <p class="text-sm text-center text-gray-600 mt-4">
+                Don’t have an account?
+                <a routerLink="/signup" class="text-purple-400 hover:cursor-pointer hover:underline">Sign up</a><br />
+                <a routerLink="/forgot-password"
+                    class="text-sm text-purple-400 hover:cursor-pointer hover:underline">Forgot password?</a>
+            </p>
+        </form>
+    </div>
+</div>
