@@ -1,0 +1,26 @@
+<div *ngIf="isOpen"
+    class="fixed top-0 left-0 h-full w-80 bg-white shadow-2xl z-50 p-4 space-y-4 flex items-start flex-col">
+
+    <div class="flex flex-row items-center justify-between w-full h-[4%]">
+        <h2 class="text-xl font-bold text-black cursor-default">AUTH</h2>
+        <button (click)="closeSidebar()"
+            class="w-7 h-7 flex items-center justify-center text-black font-bold rounded hover:bg-gray-200 hover:cursor-pointer transition">
+            ✕
+        </button>
+    </div>
+
+    <div class="flex w-full h-[96%]">
+        <div class="gap-3 flex flex-col item-start w-full ml-2 mt-2">
+            <a routerLink="/home" (click)="closeSidebar()" class="sideBarButtons sideBarButtons:hover">
+                <p class="ml-2">Home</p>
+            </a>
+            <a routerLink="/login" (click)="closeSidebar()" class="sideBarButtons sideBarButtons:hover">
+                <p class="ml-2">Login</p>
+            </a>
+            <a routerLink="/signup" (click)="closeSidebar()" class="sideBarButtons sideBarButtons:hover">
+                <p class="ml-2">Signup</p>
+            </a>
+        </div>
+    </div>
+
+</div>

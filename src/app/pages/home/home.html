@@ -1,11 +1,6 @@
-<div class="min-h-screen flex items-center justify-center bg-black">
-    <div class="bg-[#131313] border-1 border-white p-8 rounded-lg shadow-md text-center">
-        <h2 class="text-2xl font-bold mb-4 text-white">Welcome, {{ username }}</h2>
-        <p class="mb-6 text-gray-300">Logged in as: <strong>{{ userEmail }}</strong></p>
-
-
-        <button (click)="logout()" class="bg-purple-500 text-white font-bold px-4 py-2 rounded-lg hover:bg-purple-700">
-            Logout
-        </button>
-    </div>
+<div class="p-6">
+    <h1 class="text-3xl font-bold">Welcome, {{ fullName }}</h1>
+    <button (click)="logout()" class="py-3 px-8 bg-black text-white cursor-pointer rounded-md font-bold text-xl mt-5">
+        Log out
+    </button>
 </div>

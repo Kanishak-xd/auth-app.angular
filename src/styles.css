@@ -3,3 +3,14 @@
 .grayInput {
     background-color: #edecec;
 }
+
+.sideBarButtons {
+    color: black;
+    padding-block: calc(var(--spacing) * 1);
+    font-weight: 500;
+}
+
+.sideBarButtons:hover {
+    background-color: #d1d5dc;
+    border-radius: 0.25rem;
+}
