@@ -1,6 +1,60 @@
-<div class="p-6">
-    <h1 class="text-3xl font-bold">Welcome, {{ fullName }}</h1>
-    <button (click)="logout()" class="py-3 px-8 bg-black text-white cursor-pointer rounded-md font-bold text-xl mt-5">
-        Log out
-    </button>
+<div class="flex justify-center items-center w-full">
+    <div class="flex flex-col w-[40%] h-170 border-1 border-black mt-20 rounded-lg shadow-2xl shadow-gray-400">
+
+        <div class="w-full h-[20%] bg-red-500 rounded-t-md"></div>
+
+        <div class="btnsContainer w-full h-[12%] flex flex-row">
+            <div class="w-40 h-40 -translate-y-20 ml-8 rounded-3xl bg-black"></div>
+
+            <button (click)="toggleEdit()"
+                class="h-2/3 rounded-lg font-medium ml-60 mt-3 text-xl w-[20%] bg-black cursor-pointer text-white">
+                {{ isEditing ? 'Update Profile' : 'Edit Profile' }}
+            </button>
+
+            <button (click)="logout()"
+                class="h-2/3 rounded-lg font-medium ml-2 mt-3 text-xl w-[20%] bg-black cursor-pointer text-white">
+                Log out
+            </button>
+        </div>
+
+        <form (ngSubmit)="onUpdate()">
+            <div class="flex gap-4 mt-3">
+                <div class="w-1/2 ml-5 flex flex-col">
+
+                    <!-- First Name -->
+                    <label for="firstName" class="text-black text-lg font-semibold">First Name:</label>
+                    <input [(ngModel)]="firstName" name="firstName" [disabled]="!isEditing" type="text"
+                        class="mt-1 px-4 py-2 bg-transparent rounded-lg focus:ring-2 focus:ring-black text-black text-2xl placeholder-black"
+                        placeholder="First Name" />
+
+                    <!-- Last Name -->
+                    <label for="lastName" class="text-black text-lg font-semibold mt-3">Last Name:</label>
+                    <input [(ngModel)]="lastName" name="lastName" [disabled]="!isEditing" type="text"
+                        class="mt-1 px-4 py-2 bg-transparent rounded-lg focus:ring-2 focus:ring-black text-black text-2xl placeholder-black"
+                        placeholder="Last Name" />
+
+                    <!-- Date of Birth -->
+                    <label for="dob" class="text-black text-lg font-semibold mt-3">Date of Birth:</label>
+                    <input [(ngModel)]="dob" name="dob" [disabled]="!isEditing" type="date"
+                        class="mt-1 px-4 py-2 bg-transparent rounded-lg focus:ring-2 focus:ring-black text-black text-2xl" />
+
+                    <!-- Mobile -->
+                    <label for="mobile" class="text-black text-lg font-semibold mt-3">Mobile:</label>
+                    <input [(ngModel)]="mobile" name="mobile" [disabled]="!isEditing" type="text"
+                        class="mt-1 px-4 py-2 bg-transparent rounded-lg focus:ring-2 focus:ring-black text-black text-2xl placeholder-black"
+                        placeholder="Mobile Number" />
+
+                </div>
+            </div>
+        </form>
+
+        <div class="w-full h-[10%] flex flex-row items-center">
+            <p class="text-black text-xl ml-8">Email:</p>
+            <span class="text-black text-xl ml-1">{{ email }}</span>
+            <button (click)="resetPassword()"
+                class="py-3 px-8 bg-black text-white cursor-pointer rounded-md font-semibold text-xl ml-40">
+                Change password
+            </button>
+        </div>
+    </div>
 </div>
