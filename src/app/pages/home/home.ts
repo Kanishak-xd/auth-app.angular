@@ -23,6 +23,7 @@ export class Home {
   dob: string = '';
   mobile: string = '';
   email: string = '';
+  profilePicUrl: string = '';
 
   async ngOnInit() {
     const user = this.auth.currentUser;
@@ -41,6 +42,7 @@ export class Home {
       const data = docSnap.data();
       this.dob = data['dob'] || '';
       this.mobile = data['mobile'] || '';
+      this.profilePicUrl = data['profilePicUrl'] || '';
     }
   }
 
@@ -57,23 +59,63 @@ export class Home {
 
     const fullName = `${this.firstName} ${this.lastName}`.trim();
 
-    // Update Firebase Auth display name
     await updateProfile(user, { displayName: fullName });
 
-    // Update Firestore document
-    await setDoc(doc(this.firestore, 'users', user.uid), {
-      uid: user.uid,
-      email: user.email,
-      fullName,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      dob: this.dob,
-      mobile: this.mobile,
-      updatedAt: new Date(),
-    });
+    await setDoc(
+      doc(this.firestore, 'users', user.uid),
+      {
+        uid: user.uid,
+        email: user.email,
+        fullName,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        dob: this.dob,
+        mobile: this.mobile,
+        profilePicUrl: this.profilePicUrl,
+        updatedAt: new Date(),
+      },
+      { merge: true }
+    );
 
     alert('Profile updated!');
     this.isEditing = false;
+  }
+
+  async onImageSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'unsigned_upload');
+
+    const cloudName = 'dykzzd9sy';
+    const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+
+    try {
+      const response = await fetch(uploadUrl, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      this.profilePicUrl = data.secure_url;
+
+      const user = this.auth.currentUser;
+      if (user) {
+        await setDoc(
+          doc(this.firestore, 'users', user.uid),
+          { profilePicUrl: this.profilePicUrl, updatedAt: new Date() },
+          { merge: true }
+        );
+      }
+    } catch (err) {
+      console.error('Image upload failed:', err);
+      alert('Image upload failed!');
+    }
+
+    window.dispatchEvent(new CustomEvent('profile-pic-updated'));
   }
 
   async resetPassword() {

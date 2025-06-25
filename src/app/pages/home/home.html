@@ -4,7 +4,14 @@
         <div class="w-full h-[20%] bg-red-500 rounded-t-md"></div>
 
         <div class="btnsContainer w-full h-[12%] flex flex-row">
-            <div class="w-40 h-40 -translate-y-20 ml-8 rounded-3xl bg-black"></div>
+            <div class="w-40 h-40 -translate-y-20 ml-8 rounded-3xl bg-black overflow-hidden relative cursor-pointer">
+                <label class="relative cursor-pointer flex items-center justify-center">
+                    <img [src]="profilePicUrl || 'https://via.placeholder.com/150/000000/FFFFFF?text=Upload'"
+                        alt="Profile" class="w-35 h-35 translate-y-2.5 rounded-2xl object-cover border border-black" />
+                    <input type="file" (change)="onImageSelected($event)" [disabled]="!isEditing" hidden
+                        accept="image/*" />
+                </label>
+            </div>
 
             <button (click)="toggleEdit()"
                 class="h-2/3 rounded-lg font-medium ml-60 mt-3 text-xl w-[20%] bg-black cursor-pointer text-white">
