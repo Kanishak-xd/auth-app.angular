@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
+import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-signup',
@@ -12,12 +13,15 @@ import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fi
   templateUrl: './signup.html',
 })
 export class Signup {
-  username: string = '';
+  firstName: string = '';
+  lastName: string = '';
+  dob: string = '';
+  mobile: string = '';
   email: string = '';
   password: string = '';
   error: string = '';
 
-  constructor(private auth: Auth, private router: Router) { }
+  constructor(private auth: Auth, private firestore: Firestore, private router: Router) {}
 
   async onSubmit() {
     try {
@@ -27,12 +31,25 @@ export class Signup {
         this.password
       );
 
-      // Set display name (username)
-      await updateProfile(userCredential.user, {
-        displayName: this.username,
+      const user = userCredential.user;
+
+      // full name
+      await updateProfile(user, {
+        displayName: `${this.firstName} ${this.lastName}`,
       });
 
-      // Navigate to home
+      // user data to Firestore
+      await setDoc(doc(this.firestore, 'users', user.uid), {
+        uid: user.uid,
+        email: this.email,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        dob: this.dob,
+        mobile: this.mobile,
+        createdAt: new Date()
+      });
+
+      // go home
       this.router.navigate(['/home']);
     } catch (err: any) {
       this.error = err.message;
@@ -40,4 +57,3 @@ export class Signup {
     }
   }
 }
-

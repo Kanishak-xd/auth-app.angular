@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.grayInput {
+    background-color: #edecec;
+}
