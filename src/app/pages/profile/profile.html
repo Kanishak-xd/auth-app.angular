@@ -1,0 +1,77 @@
+<div class="flex flex-col items-center w-full px-6 py-10 bg-gray-50 min-h-screen">
+    <h1 class="text-3xl font-bold text-black mb-8">Profile</h1>
+
+    <div class="w-full max-w-4xl bg-white p-8 rounded-md border border-gray-300">
+
+        <!-- profile picture, mail, edit and logout buttons -->
+        <div class="flex items-center justify-between mb-8">
+
+            <div class="flex items-center space-x-6">
+                <div class="w-28 h-28 rounded-lg bg-gray-200 overflow-hidden relative cursor-pointer">
+                    <label class="relative w-full h-full flex items-center justify-center">
+                        <img [src]="profilePicUrl || 'https://via.placeholder.com/150/000000/FFFFFF?text=Upload'"
+                            alt="Profile" class="w-full h-full object-cover" />
+                        <input type="file" (change)="onImageSelected($event)" [disabled]="!isEditing" hidden
+                            accept="image/*" />
+                    </label>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-semibold text-black">{{ firstName + ' ' + lastName }}</h2>
+                    <p class="text-gray-600">{{ email }}</p>
+                </div>
+            </div>
+
+            <div class="space-x-3">
+                <button (click)="toggleEdit()"
+                    class="px-6 py-2 text-white bg-black rounded-md font-medium cursor-pointer">
+                    {{ isEditing ? 'Update Profile' : 'Edit Profile' }}
+                </button>
+                <button (click)="logout()"
+                    class="px-6 py-2 bg-red-500 text-white rounded-md font-medium hover:bg-red-600 cursor-pointer">
+                    Log out
+                </button>
+            </div>
+
+        </div>
+
+        <!-- fname, lname, dob and mobno -->
+        <form (ngSubmit)="onUpdate()" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div class="flex flex-col">
+                <label for="firstName" class="text-sm font-medium text-gray-700">First Name</label>
+                <input [(ngModel)]="firstName" name="firstName" [disabled]="!isEditing" type="text"
+                    class="mt-1 px-4 py-2 rounded-md border border-gray-300 focus:ring-black focus:border-black text-black"
+                    placeholder="First Name" />
+            </div>
+
+            <div class="flex flex-col">
+                <label for="lastName" class="text-sm font-medium text-gray-700">Last Name</label>
+                <input [(ngModel)]="lastName" name="lastName" [disabled]="!isEditing" type="text"
+                    class="mt-1 px-4 py-2 rounded-md border border-gray-300 focus:ring-black focus:border-black text-black"
+                    placeholder="Last Name" />
+            </div>
+
+            <div class="flex flex-col">
+                <label for="dob" class="text-sm font-medium text-gray-700">Date of Birth</label>
+                <input [(ngModel)]="dob" name="dob" [disabled]="!isEditing" type="date"
+                    class="mt-1 px-4 py-2 rounded-md border border-gray-300 focus:ring-black focus:border-black text-black" />
+            </div>
+
+            <div class="flex flex-col">
+                <label for="mobile" class="text-sm font-medium text-gray-700">Mobile</label>
+                <input [(ngModel)]="mobile" name="mobile" [disabled]="!isEditing" type="text"
+                    class="mt-1 px-4 py-2 rounded-md border border-gray-300 focus:ring-black focus:border-black text-black"
+                    placeholder="Mobile Number" />
+            </div>
+
+        </form>
+
+        <!-- change password button -->
+        <div class="mt-8">
+            <button (click)="resetPassword()"
+                class="px-6 py-2 bg-blue-600 text-white rounded-md font-medium cursor-pointer hover:bg-blue-700">
+                Change Password
+            </button>
+        </div>
+    </div>
+</div>

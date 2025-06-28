@@ -21,7 +21,7 @@ export class Login {
   async onSubmit() {
     try {
       await signInWithEmailAndPassword(this.auth, this.email, this.password);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/profile']);
     } catch (err: any) {
       this.error = err.message;
       console.error('Login error:', err);

@@ -21,7 +21,7 @@ export class Signup {
   password: string = '';
   error: string = '';
 
-  constructor(private auth: Auth, private firestore: Firestore, private router: Router) {}
+  constructor(private auth: Auth, private firestore: Firestore, private router: Router) { }
 
   async onSubmit() {
     try {
@@ -50,7 +50,7 @@ export class Signup {
       });
 
       // go home
-      this.router.navigate(['/home']);
+      this.router.navigate(['/profile']);
     } catch (err: any) {
       this.error = err.message;
       console.error('Signup error:', err);
