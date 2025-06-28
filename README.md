@@ -10,6 +10,7 @@ A simple authentication app built using **Angular 20**, **Firebase**, and **Tail
 - Log In with Firebase Authentication
 - Forgot Password with email reset link
 - Auth Guard to protect routes
+- Edit Profile (Profile icon, name, DoB and mobile no)
 - Tailwind CSS styling
 
 ---
@@ -17,7 +18,8 @@ A simple authentication app built using **Angular 20**, **Firebase**, and **Tail
 ## Tech Stack
 
 - Angular 20
-- Firebase v10+
+- Firebase Authentication & Database
+- Cloudinary Image Storage
 - Tailwind CSS v4.1
 
 ---
