@@ -47,4 +47,8 @@ export class Navbar implements OnInit {
   toggleSidebar() {
     document.dispatchEvent(new CustomEvent('toggle-sidebar'));
   }
+
+  toggleRightbar() {
+    document.dispatchEvent(new CustomEvent('toggle-rightbar'));
+  }
 }
