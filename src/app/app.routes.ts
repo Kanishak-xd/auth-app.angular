@@ -7,13 +7,14 @@ import { Profile } from './pages/profile/profile';
 import { Admin } from './pages/admin/admin';
 
 import { authGuard } from './guards/auth.guard';
+import { statusGuard } from './guards/status.guard';
 
 export const routes: Routes = [
-    { path: '', component: Home, canActivate: [authGuard] },
-    { path: 'home', component: Home, canActivate: [authGuard] },
-    { path: 'profile', component: Profile, canActivate: [authGuard] },
-    { path: 'admin', component: Admin, canActivate: [authGuard] },
+    { path: '', component: Home, canActivate: [authGuard, statusGuard] },
     { path: 'login', component: Login },
     { path: 'signup', component: Signup },
     { path: 'forgot-password', component: Forgot },
+    { path: 'profile', component: Profile, canActivate: [authGuard, statusGuard] },
+    { path: 'home', component: Home, canActivate: [authGuard, statusGuard] },
+    { path: 'admin', component: Admin, canActivate: [authGuard, statusGuard] }
 ];

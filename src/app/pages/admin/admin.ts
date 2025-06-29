@@ -24,7 +24,19 @@ export class Admin implements OnInit {
   async loadUsers() {
     const usersCol = collection(this.firestore, 'users');
     const snapshot = await getDocs(usersCol);
-    this.users = snapshot.docs.map(doc => doc.data());
+    this.users = snapshot.docs.map(docSnap => {
+      const data = docSnap.data();
+
+      const normalizedStatus = (data['status'] || 'Active').toLowerCase();
+
+      return {
+        uid: data['uid'],
+        email: data['email'],
+        fullName: data['fullName'],
+        status: normalizedStatus,
+        role: data['role'] || 'User'
+      };
+    });
   }
 
   async loadLogs() {
@@ -34,10 +46,12 @@ export class Admin implements OnInit {
   }
 
   async toggleStatus(userId: string, currentStatus: string) {
-    const statusLower = currentStatus.toLowerCase();
-    const newStatus = statusLower === 'active' ? 'offline' : 'active';
+    const current = (currentStatus || 'Active').toLowerCase();
+    const newStatus = current === 'active' ? 'Unactive' : 'Active';
+
     const userRef = doc(this.firestore, 'users', userId);
     await updateDoc(userRef, { status: newStatus });
+
     await this.loadUsers();
   }
 }
