@@ -21,7 +21,11 @@ export class Signup {
   password: string = '';
   error: string = '';
 
-  constructor(private auth: Auth, private firestore: Firestore, private router: Router) { }
+  constructor(
+    private auth: Auth,
+    private firestore: Firestore,
+    private router: Router
+  ) { }
 
   async onSubmit() {
     try {
@@ -33,23 +37,28 @@ export class Signup {
 
       const user = userCredential.user;
 
-      // full name
+      // set display name
       await updateProfile(user, {
         displayName: `${this.firstName} ${this.lastName}`,
       });
 
-      // user data to Firestore
+      // set firestore schema
       await setDoc(doc(this.firestore, 'users', user.uid), {
         uid: user.uid,
         email: this.email,
         firstName: this.firstName,
         lastName: this.lastName,
-        dob: this.dob,
-        mobile: this.mobile,
-        createdAt: new Date()
+        fullName: `${this.firstName} ${this.lastName}`,
+        dob: this.dob || '',
+        mobile: this.mobile || '',
+        profilePicUrl: '',
+        status: 'active',
+        role: 'User',
+        createdAt: new Date(),
+        updatedAt: new Date()
       });
 
-      // go home
+      // go to profile
       this.router.navigate(['/profile']);
     } catch (err: any) {
       this.error = err.message;

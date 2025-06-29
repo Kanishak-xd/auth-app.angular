@@ -1,0 +1,55 @@
+<div class="p-8">
+    <h1 class="text-3xl font-bold mb-6 text-black">Admin Dashboard</h1>
+
+    <!-- User Table -->
+    <h2 class="text-xl font-semibold text-black mb-2">Registered Users</h2>
+    <div class="overflow-auto rounded-lg shadow border border-gray-200 mb-8">
+        <table class="min-w-full text-sm text-left text-black">
+            <thead class="bg-gray-200 text-black font-bold">
+                <tr>
+                    <th class="px-6 py-3">Name</th>
+                    <th class="px-6 py-3">Email</th>
+                    <th class="px-6 py-3">Status</th>
+                    <th class="px-6 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users" class="border-b border-gray-200">
+                    <td class="px-6 py-3">{{ user.fullName }}</td>
+                    <td class="px-6 py-3">{{ user.email }}</td>
+                    <td class="px-6 py-3 capitalize">{{ user.status || 'active' }}</td>
+                    <td class="px-6 py-3">
+                        <button (click)="toggleStatus(user.uid, user.status || 'active')"
+                            class="px-3 py-1 text-sm rounded-md text-white" [ngClass]="{
+                            'bg-green-600 hover:bg-green-700': (user.status || 'active')?.toLowerCase() !== 'active',
+                            'bg-red-500 hover:bg-red-600': (user.status || 'active')?.toLowerCase() === 'active'
+                        }">
+                            {{ (user.status || 'active')?.toLowerCase() === 'active' ? 'Deactivate' : 'Activate' }}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Logs Table -->
+    <h2 class="text-xl font-semibold text-black mb-2">User Logs</h2>
+    <div class="overflow-auto rounded-lg shadow border border-gray-200">
+        <table class="min-w-full text-sm text-left text-black">
+            <thead class="bg-gray-200 text-black font-bold">
+                <tr>
+                    <th class="px-6 py-3">User</th>
+                    <th class="px-6 py-3">Action</th>
+                    <th class="px-6 py-3">Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let log of logs" class="border-b border-gray-200">
+                    <td class="px-6 py-3">{{ log.userEmail }}</td>
+                    <td class="px-6 py-3">{{ log.action }}</td>
+                    <td class="px-6 py-3">{{ log.timestamp }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
