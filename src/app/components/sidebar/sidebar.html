@@ -12,17 +12,15 @@
     <div class="flex w-full h-[96%]">
         <div class="gap-3 flex flex-col item-start w-full ml-2 mt-2">
             <a routerLink="/home" (click)="closeSidebar()" class="sideBarButtons sideBarButtons:hover">
-                <p class="ml-2">Home</p>
+                <p class="ml-2">Home page</p>
             </a>
             <a routerLink="/profile" (click)="closeSidebar()" class="sideBarButtons sideBarButtons:hover">
-                <p class="ml-2">Profile</p>
+                <p class="ml-2">Your profile</p>
             </a>
-            <a routerLink="/login" (click)="closeSidebar()" class="sideBarButtons sideBarButtons:hover">
-                <p class="ml-2">Login</p>
-            </a>
-            <a routerLink="/signup" (click)="closeSidebar()" class="sideBarButtons sideBarButtons:hover">
-                <p class="ml-2">Signup</p>
-            </a>
+            <button *ngIf="isLoggedIn && isAdmin" (click)="goToAdminDashboard()"
+                class="sideBarButtons sideBarButtons:hover text-left pl-2">
+                Admin Dashboard
+            </button>
         </div>
     </div>
 
