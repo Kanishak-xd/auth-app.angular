@@ -34,6 +34,14 @@ export class Rightbar {
     window.addEventListener('profile-pic-updated', () => {
       this.loadUserData();
     });
+
+    window.addEventListener('user-logged-out', () => {
+      this.firstName = '';
+      this.lastName = '';
+      this.email = '';
+      this.profilePicUrl = '';
+      this.isOpen = false;
+    });
   }
 
   closeRightbar() {

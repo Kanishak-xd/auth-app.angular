@@ -128,6 +128,10 @@ export class Profile {
 
     async logout() {
         await signOut(this.auth);
+
+        // Dispatch a logout event that Rightbar is listening to
+        window.dispatchEvent(new CustomEvent('user-logged-out'));
+
         this.router.navigate(['/login']);
     }
 } 
