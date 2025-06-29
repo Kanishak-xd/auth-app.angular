@@ -1,17 +1,15 @@
 # Angular Firebase Auth App
 
-A simple authentication app built using **Angular 20**, **Firebase**, and **Tailwind CSS**.
+An app built using **Angular 20**, **Firebase**, and **Tailwind CSS**.
 
 ---
 
 ## Features
 
-- Sign Up with Email, Password, and Username
-- Log In with Firebase Authentication
-- Forgot Password with email reset link
-- Auth Guard to protect routes
-- Edit Profile (Profile icon, name, DoB and mobile no)
-- Tailwind CSS styling
+- Sign-up, log-in and reset password with Firebase Authentication
+- Auth and status guard to protect routes accessibility
+- Admin Dashboard with user list, roles, status, actions and audit logs
+- Profile page with editable profile icon, name, DoB and mobile number
 
 ---
 
@@ -28,7 +26,7 @@ A simple authentication app built using **Angular 20**, **Firebase**, and **Tail
 
 1. Do ``ng new auth-app``
 2. Install tailwind css in the project (follow tailwind's official documentation)
-3. Make new project on firebase & enable email/password authentication
+3. Make new project on firebase and enable email/password authentication and database
 4. Get your Firebase config and paste it in src/environments/environment.ts:
 ```
 export const environment = {
