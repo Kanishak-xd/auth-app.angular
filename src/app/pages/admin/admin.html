@@ -1,4 +1,4 @@
-<div class="p-8">
+<div class="px-30 pt-10">
     <h1 class="text-3xl font-bold mb-6 text-black">Admin Dashboard</h1>
 
     <h2 class="text-xl font-semibold text-black mb-6">Registered Users</h2>
@@ -86,7 +86,7 @@
     </div>
 
     <!-- Users Table -->
-    <div class="overflow-auto rounded-lg shadow border border-gray-200 mb-8">
+    <div class="overflow-auto rounded-lg shadow border border-gray-200 mb-12">
         <table class="min-w-full text-sm text-left text-black">
             <thead class="bg-gray-200 text-black font-bold">
                 <tr>
@@ -117,24 +117,15 @@
         </table>
     </div>
 
+    <hr class="text-gray-400">
+
     <!-- Logs Table -->
-    <h2 class="text-xl font-semibold text-black mb-2">User Logs</h2>
-    <div class="overflow-auto rounded-lg shadow border border-gray-200">
-        <table class="min-w-full text-sm text-left text-black">
-            <thead class="bg-gray-200 text-black font-bold">
-                <tr>
-                    <th class="px-6 py-3">User</th>
-                    <th class="px-6 py-3">Action</th>
-                    <th class="px-6 py-3">Timestamp</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let log of logs" class="border-b border-gray-200">
-                    <td class="px-6 py-3">{{ log.userEmail }}</td>
-                    <td class="px-6 py-3">{{ log.action }}</td>
-                    <td class="px-6 py-3">{{ log.timestamp }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <h2 class="text-xl font-semibold text-black mt-9 mb-4">User Logs</h2>
+    <ul class="space-y-2 text-black text-sm">
+        <li *ngFor="let log of logs" class="bg-gray-200 py-3 rounded-md">
+            <span class="font-medium text-md pl-3">{{ log.userEmail }}</span> {{ log.action }} at
+            {{ log.timestamp.toDate() | date:'medium' }}
+        </li>
+    </ul>
+
 </div>

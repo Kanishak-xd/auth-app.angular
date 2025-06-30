@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { collection, addDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-signup',
@@ -42,7 +43,7 @@ export class Signup {
         displayName: `${this.firstName} ${this.lastName}`,
       });
 
-      // set firestore schema
+      // set Firestore schema
       await setDoc(doc(this.firestore, 'users', user.uid), {
         uid: user.uid,
         email: this.email,
@@ -58,11 +59,25 @@ export class Signup {
         updatedAt: new Date()
       });
 
-      // go to profile
+      // log the signup action
+      await this.logUserAction(this.firestore, user.uid, user.email!, 'just signed up');
+
+      // redirect to profile
       this.router.navigate(['/profile']);
     } catch (err: any) {
       this.error = err.message;
       console.error('Signup error:', err);
     }
   }
+
+  async logUserAction(firestore: Firestore, uid: string, email: string, action: string) {
+    const logsRef = collection(firestore, 'logs');
+    await addDoc(logsRef, {
+      uid,
+      userEmail: email,
+      action,
+      timestamp: new Date()
+    });
+  }
 }
+

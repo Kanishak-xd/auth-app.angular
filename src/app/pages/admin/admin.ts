@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Firestore, collection, getDocs, updateDoc, doc } from '@angular/fire/firestore';
 import { Auth } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
+import { query, orderBy } from '@firebase/firestore';
 
 @Component({
   selector: 'app-admin',
@@ -48,7 +49,8 @@ export class Admin implements OnInit {
 
   async loadLogs() {
     const logsCol = collection(this.firestore, 'logs');
-    const snapshot = await getDocs(logsCol);
+    const q = query(logsCol, orderBy('timestamp', 'desc'));
+    const snapshot = await getDocs(q);
     this.logs = snapshot.docs.map(doc => doc.data());
   }
 

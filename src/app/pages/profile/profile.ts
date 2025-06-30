@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth, signOut, sendPasswordResetEmail, updateProfile } from '@angular/fire/auth';
-import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, setDoc, collection, addDoc } from '@angular/fire/firestore';
 
 @Component({
     selector: 'app-profile',
@@ -77,8 +77,21 @@ export class Profile {
             { merge: true }
         );
 
+        // log action here
+        await this.logUserAction(this.firestore, user.uid, user.email!, 'updated their profile');
+
         alert('Profile updated!');
         this.isEditing = false;
+    }
+
+    async logUserAction(firestore: Firestore, uid: string, email: string, action: string) {
+        const logsRef = collection(firestore, 'logs');
+        await addDoc(logsRef, {
+            uid,
+            userEmail: email,
+            action,
+            timestamp: new Date()
+        });
     }
 
     async onImageSelected(event: Event) {
@@ -129,7 +142,7 @@ export class Profile {
     async logout() {
         await signOut(this.auth);
 
-        // Dispatch a logout event that Rightbar is listening to
+        // dispatch a logout event that rightbar is listening to
         window.dispatchEvent(new CustomEvent('user-logged-out'));
 
         this.router.navigate(['/login']);
