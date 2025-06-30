@@ -1,8 +1,89 @@
 <div class="p-8">
     <h1 class="text-3xl font-bold mb-6 text-black">Admin Dashboard</h1>
 
-    <!-- User Table -->
-    <h2 class="text-xl font-semibold text-black mb-2">Registered Users</h2>
+    <h2 class="text-xl font-semibold text-black mb-6">Registered Users</h2>
+
+    <!-- Users Filters -->
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 mb-6">
+        <!-- Status Filter -->
+        <details class="group relative">
+            <summary
+                class="flex items-center gap-2 border-b border-gray-300 pb-1 text-gray-700 transition-colors hover:border-gray-400 hover:text-gray-900 [&::-webkit-details-marker]:hidden hover:cursor-pointer">
+                <span class="text-sm font-medium"> Status </span>
+                <span class="transition-transform group-open:-rotate-180">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                </span>
+            </summary>
+            <div
+                class="z-auto w-64 divide-y divide-gray-300 rounded border border-gray-300 bg-white shadow-sm group-open:absolute group-open:start-0 group-open:top-8">
+                <fieldset class="p-3">
+                    <legend class="sr-only">Status Checkboxes</legend>
+                    <div class="flex flex-col items-start gap-3">
+                        <label class="inline-flex items-center gap-3">
+                            <input #statusActive type="checkbox"
+                                class="size-5 rounded border-gray-300 shadow-sm hover:cursor-pointer"
+                                (change)="onFiltersChanged()" />
+                            <span class="text-sm font-medium text-gray-700"> Active </span>
+                        </label>
+                        <label class="inline-flex items-center gap-3">
+                            <input #statusUnactive type="checkbox"
+                                class="size-5 rounded border-gray-300 shadow-sm hover:cursor-pointer"
+                                (change)="onFiltersChanged()" />
+                            <span class="text-sm font-medium text-gray-700"> Unactive </span>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+        </details>
+
+        <!-- Role Filter -->
+        <details class="group relative">
+            <summary
+                class="flex items-center gap-2 border-b border-gray-300 pb-1 text-gray-700 transition-colors hover:border-gray-400 hover:text-gray-900 [&::-webkit-details-marker]:hidden hover:cursor-pointer">
+                <span class="text-sm font-medium"> Role </span>
+                <span class="transition-transform group-open:-rotate-180">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                </span>
+            </summary>
+            <div
+                class="z-auto w-64 divide-y divide-gray-300 rounded border border-gray-300 bg-white shadow-sm group-open:absolute group-open:start-0 group-open:top-8">
+                <fieldset class="p-3">
+                    <legend class="sr-only">Role Checkboxes</legend>
+                    <div class="flex flex-col items-start gap-3">
+                        <label class="inline-flex items-center gap-3">
+                            <input #roleAdmin type="checkbox"
+                                class="size-5 rounded border-gray-300 shadow-sm hover:cursor-pointer"
+                                (change)="onFiltersChanged()" />
+                            <span class="text-sm font-medium text-gray-700"> Admin </span>
+                        </label>
+                        <label class="inline-flex items-center gap-3">
+                            <input #roleUser type="checkbox"
+                                class="size-5 rounded border-gray-300 shadow-sm hover:cursor-pointer"
+                                (change)="onFiltersChanged()" />
+                            <span class="text-sm font-medium text-gray-700"> User </span>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+        </details>
+
+        <!-- Search Bar -->
+        <input type="text" placeholder="Search for name or email" [(ngModel)]="searchQuery" (input)="onFiltersChanged()"
+            class="w-full sm:w-80 border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black" />
+
+        <!-- Reset Button -->
+        <button (click)="clearFilters()"
+            class="text-sm text-gray-700 bg-gray-200 py-2 px-2 rounded-md transition-colors hover:text-gray-900 hover:cursor-pointer">Reset
+            Filters</button>
+    </div>
+
+    <!-- Users Table -->
     <div class="overflow-auto rounded-lg shadow border border-gray-200 mb-8">
         <table class="min-w-full text-sm text-left text-black">
             <thead class="bg-gray-200 text-black font-bold">
